@@ -64,8 +64,8 @@ build do
   # patch-aa: fix libxml2 detection without pkg-config
   patch :source => 'patch-aa', :plevel => 0
   command "./configure --prefix=#{install_dir}/embedded #{plugin_opts.join(' ')}", :env => configure_env
-  command "make"
-  command "make install"
+  command "make", :env => configure_env
+  command "make install", :env => configure_env
   [ "sbin/collectd", "sbin/collectdmon", "bin/collectdctl" ].each do |bin|
     command "ln -sf #{install_dir}/embedded/#{bin} #{install_dir}/bin/"
   end
