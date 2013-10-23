@@ -46,6 +46,7 @@ configure_env = {
   "CXXFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
   "CPPFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
   "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+  "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}",
 }
 
 plugin_opts = [
