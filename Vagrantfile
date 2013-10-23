@@ -71,6 +71,10 @@ Vagrant.configure("2") do |config|
     ]
   end
 
+  config.vm.provision :shell, :inline => <<-CHEF_APPLY
+    chef-apply -e 'package "unzip"'
+  CHEF_APPLY
+
   config.vm.provision :shell, :inline => <<-OMNIBUS_BUILD
     export PATH=/usr/local/bin:$PATH
     cd #{guest_project_path}
