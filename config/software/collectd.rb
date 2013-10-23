@@ -16,9 +16,14 @@
 #
 
 name "collectd"
-version "5.2.1"
+version "5.4.0"
 
+dependency "cmake"
+dependency "libyajl"
+dependency "protobuf-c"
+dependency "credis"
 dependency "libgcrypt"  # Used by ???
+dependency "libpcap"
 
 # Curl JSON and XML plugins
 dependency "curl"
@@ -27,9 +32,11 @@ dependency "libxml2"
 
 # AMQP plugin
 dependency "rabbitmq-c"
+dependency "percona-dev"
+dependency "liboping"
 
-source :url => "http://collectd.org/files/collectd-#{version}.tar.bz2",
-       :md5 => "350934cfea62d37e10191816744f0eb7"
+source :url => "http://collectd.org/files/collectd-#{version}.tar.gz",
+       :md5 => "d4176b3066f3b85d85343d3648ea43f6"
 
 relative_path "collectd-#{version}"
 
@@ -39,8 +46,21 @@ configure_env = {
   "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
 }
 
+plugin_opts = [
+  "--enable-curl",
+  "--enable-curl_json",
+  "--enable-curl_xml",
+  "--enable-ping --with-liboping=#{install_dir}/embedded",
+  "--enable-write_riemann",
+  "--enable-write_http",
+  "--enable-write_graphite",
+  "--enable-write_redis"
+]
+
 build do
-  command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
+  # patch-aa: fix libxml2 detection without pkg-config
+  patch :source => 'patch-aa', :plevel => 0
+  command "./configure --prefix=#{install_dir}/embedded #{plugin_opts.join(' ')}", :env => configure_env
   command "make"
   command "make install"
   [ "sbin/collectd", "sbin/collectdmon", "bin/collectdctl" ].each do |bin|

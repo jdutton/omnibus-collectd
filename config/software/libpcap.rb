@@ -15,20 +15,16 @@
 # limitations under the License.
 #
 
-name "collectd"
-maintainer "jeff.r.dutton@gmail.com"
-homepage "https://github.com/jdutton/omnibus-collectd"
+name "libpcap"
+version "1.4.0"
 
-replaces        "collectd"
-install_path    "/opt/collectd"
-build_version   "5.4.0"  # Make sure this matches the config/software/collectd.rb
-build_iteration 1
+source :url => "http://www.tcpdump.org/release/libpcap-#{version}.tar.gz",
+       :md5 => "56e88a5aabdd1e04414985ac24f7e76c"
 
-# creates required build directories
-dependency "preparation"
+relative_path "libpcap-#{version}"
 
-# collectd dependencies/components
-dependency "collectd"
-
-exclude "\.git*"
-exclude "bundler\/git"
+build do
+  command "./configure --prefix=#{install_dir}/embedded"
+  command "make"
+  command "make install"
+end

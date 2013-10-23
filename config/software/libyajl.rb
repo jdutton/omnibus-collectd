@@ -15,20 +15,24 @@
 # limitations under the License.
 #
 
-name "collectd"
-maintainer "jeff.r.dutton@gmail.com"
-homepage "https://github.com/jdutton/omnibus-collectd"
+name "libyajl"
+version "2.0.4"
 
-replaces        "collectd"
-install_path    "/opt/collectd"
-build_version   "5.4.0"  # Make sure this matches the config/software/collectd.rb
-build_iteration 1
+dependency "cmake"
 
-# creates required build directories
-dependency "preparation"
+source :url => "https://github.com/lloyd/yajl/archive/2.0.4.zip",
+       :md5 => "d04d02fd7e3c90250f62269e69161f84"
 
-# collectd dependencies/components
-dependency "collectd"
+relative_path "yajl-#{version}"
 
-exclude "\.git*"
-exclude "bundler\/git"
+configure_env = {
+  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -L/lib -L/usr/lib",
+  "CPPFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+}
+
+build do
+  command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
+  command "make"
+  command "make install"
+end
