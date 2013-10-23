@@ -57,7 +57,8 @@ plugin_opts = [
   "--enable-write_riemann",
   "--enable-write_http",
   "--enable-write_graphite",
-  "--enable-write_redis"
+  "--enable-write_redis",
+  "--without-perl-bindings"
 ]
 
 build do
