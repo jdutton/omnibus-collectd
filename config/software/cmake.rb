@@ -37,7 +37,4 @@ build do
   command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
   command "make"
   command "make install"
-  [ "cmake", "cpack", "ctest" ].each do |bin|
-    command "ln -sf #{install_dir}/embedded/#{bin} #{install_dir}/bin/"
-  end
 end

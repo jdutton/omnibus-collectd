@@ -67,7 +67,19 @@ build do
   command "./configure --prefix=#{install_dir}/embedded #{plugin_opts.join(' ')}", :env => configure_env
   command "make", :env => configure_env
   command "make install", :env => configure_env
-  [ "sbin/collectd", "sbin/collectdmon", "bin/collectdctl" ].each do |bin|
+  command "mkdir #{install_dir}/sbin #{install_dir}/etc"
+  [ "sbin/collectd", "sbin/collectdmon" ].each do |bin|
+    command "ln -sf #{install_dir}/embedded/#{bin} #{install_dir}/sbin/"
+  end
+  [ "bin/collectdctl", "bin/collectd-nagios", "bin/collectd-tg" ].each do |bin|
     command "ln -sf #{install_dir}/embedded/#{bin} #{install_dir}/bin/"
+  end
+  # move the config to a .dist file
+  command "mv #{install_dir}/embedded/etc/collectd.conf #{install_dir}/etc/collectd.conf.dist"
+  # this is cleanup.
+  # the cmake binaries are effing huge.
+  # at this point collectd is built and we don't need them anymore
+  %w{ccmake cmake cpack ctest}.each do |bigbin|
+    command "rm #{install_dir}/embedded/bin/#{bigbin}"
   end
 end
