@@ -34,7 +34,7 @@ Vagrant.configure("2") do |config|
     # Give enough horsepower to build without taking all day.
     vb.customize [
       "modifyvm", :id,
-      "--memory", "1536",
+      "--memory", "4096",
       "--cpus", "2"
     ]
   end
@@ -70,6 +70,10 @@ Vagrant.configure("2") do |config|
       "recipe[omnibus::default]"
     ]
   end
+
+  config.vm.provision :shell, :inline => <<-CHEF_APPLY
+    chef-apply -e 'package "unzip"'
+  CHEF_APPLY
 
   config.vm.provision :shell, :inline => <<-OMNIBUS_BUILD
     export PATH=/usr/local/bin:$PATH
