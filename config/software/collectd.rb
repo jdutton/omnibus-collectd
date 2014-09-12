@@ -16,24 +16,34 @@
 #
 
 name "collectd"
-version "5.4.0"
+default_version "5.4.0"
 
-dependency "cmake"
-dependency "libyajl"
+# write_riemann plugin
 dependency "protobuf-c"
+# write_redis plugin
 dependency "credis"
-dependency "libgcrypt"  # Used by ???
-dependency "libpcap"
 
 # Curl JSON and XML plugins
+# alose used by apache plugin
+dependency "libyajl"
 dependency "curl"
 dependency "openssl"
 dependency "libxml2"
 
+# Ping plugin
+dependency "liboping"
+
+# DNS plugin
+dependency "libpcap"
+
+# libcollectdclient.so depends on libgcrypt
+dependency "libgcrypt"
+
 # AMQP plugin
 dependency "rabbitmq-c"
+
+# MySQL plugin
 dependency "percona-dev"
-dependency "liboping"
 
 source :url => "http://collectd.org/files/collectd-#{version}.tar.gz",
        :md5 => "d4176b3066f3b85d85343d3648ea43f6"
@@ -53,6 +63,7 @@ plugin_opts = [
   "--enable-curl",
   "--enable-curl_json",
   "--enable-curl_xml",
+  "--enable-dns",
   "--enable-ping --with-liboping=#{install_dir}/embedded",
   "--enable-write_riemann",
   "--enable-write_http",

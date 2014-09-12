@@ -1,12 +1,12 @@
---- configure	2013-08-18 10:25:01.622558671 +0000
-+++ configure.omnibus	2013-10-22 21:02:54.492819441 +0000
+--- configure 2013-08-18 10:25:01.622558671 +0000
++++ configure.omnibus 2013-10-22 21:02:54.492819441 +0000
 @@ -25763,6 +25763,9 @@
- 		with_libxml2="no"
- 	fi
+    with_libxml2="no"
+  fi
  fi
 +with_libxml2="yes"
 +with_libxml2_cflags="-I/opt/collectd/embedded/include/libxml2 -I/opt/collectd/embedded/include"
 +with_libxml2_ldflags="-L/opt/collectd/embedded/lib -lxml2"
  if test "x$with_libxml2" = "xyes"
  then
- 	SAVE_CPPFLAGS="$CPPFLAGS"
+  SAVE_CPPFLAGS="$CPPFLAGS"

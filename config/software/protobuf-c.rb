@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 name "protobuf-c"
-version "0.15"
+default_version "0.15"
 
 dependency "protobuf"
 
@@ -38,6 +38,6 @@ build do
             "--prefix=#{install_dir}/embedded",
            ].join(" "), :env => env
 
-  command "make -j #{max_build_jobs}", :env => env
+  command "make -j #{workers}", :env => env
   command "make install", :env => env
 end

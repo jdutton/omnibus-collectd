@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 name "credis"
-version "0.2.3"
+default_version "0.2.3"
 
 source :url => "https://credis.googlecode.com/files/credis-#{version}.tar.gz",
        :md5 => "338c21667ece272d9ab669738e27b191"
