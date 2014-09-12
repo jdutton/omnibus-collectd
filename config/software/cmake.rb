@@ -16,12 +16,12 @@
 #
 
 name "cmake"
-version "2.8.12"
+default_version "2.8.12.2"
 
 dependency "ncurses"
 
 source :url => "http://www.cmake.org/files/v2.8/cmake-#{version}.tar.gz",
-       :md5 => "105bc6d21cc2e9b6aff901e43c53afea"
+       :md5 => "17c6513483d23590cbce6957ec6d1e66"
 
 # We don't care. This is used for building yajl (and libmysqlclient)
 whitelist_file "bin/ccmake"

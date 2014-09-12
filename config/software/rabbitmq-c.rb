@@ -16,9 +16,11 @@
 #
 
 name "rabbitmq-c"
-version "rabbitmq-c-v0.3.0"
+default_version "rabbitmq-c-v0.3.0"
 
-dependencies ["autoconf", "automake", "libtool"]
+dependency "autoconf"
+dependency "automake"
+dependency "libtool"
 
 source :git => "https://github.com/alanxz/rabbitmq-c.git"
 

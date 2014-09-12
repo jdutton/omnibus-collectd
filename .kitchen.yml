@@ -1,0 +1,24 @@
+driver:
+  name: vagrant
+  customize:
+    cpus: 2
+    memory: 4096
+  synced_folders:
+    - ['.', '/home/vagrant/collectd']
+
+provisioner:
+  require_chef_omnibus: true
+
+platforms:
+  - name: ubuntu-12.04
+    run_list: apt::default
+  - name: centos-6.5
+
+suites:
+  - name: default
+    run_list: omnibus::default
+    attributes:
+      omnibus:
+        build_user:  vagrant
+        build_dir:   /home/vagrant/collectd
+        install_dir: /opt/collectd

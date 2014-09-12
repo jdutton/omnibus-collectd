@@ -1,12 +1,12 @@
 name "percona-dev"
-version "5.5.33-rel31.1-566-static-openssl-1.0.1e"
+default_version "Percona-Server-5.6.16-rel64.2-569.Linux.x86_64.tar.gz"
 dependency "rsync"
 dependency "ncurses"
 
-source :url => "http://www.percona.com/downloads/Percona-Server-5.5/Percona-Server-5.5.33-31.1/binary/linux/x86_64/Percona-Server-5.5.33-rel31.1-566-static-openssl-1.0.1e.Linux.x86_64.tar.gz",
-:md5 => "1fe2c6596d9a1f0fb6f70e348edb89fc"
+source :url => "http://www.percona.com/downloads/Percona-Server-5.6/Percona-Server-5.6.16-64.2/binary/tarball/Percona-Server-5.6.16-rel64.2-569.Linux.x86_64.tar.gz",
+       :md5 => "01ffd58c77c55b02b7f05b1ceea4d7ac"
 
-relative_path "Percona-Server-5.5.33-rel31.1-566-static-openssl-1.0.1e.Linux.x86_64"
+relative_path "Percona-Server-5.6.16-rel64.2-569.Linux.x86_64"
 
 build do
   command "#{install_dir}/embedded/bin/rsync -a lib/libmysql* #{install_dir}/embedded/lib/"

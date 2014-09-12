@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 name "liboping"
-version "1.6.2"
+default_version "1.6.2"
 
 source :url => "http://verplant.org/liboping/files/liboping-1.6.2.tar.gz",
        :md5 => "6f3e0d38ea03362476ac3be8b3fd961e"
@@ -35,7 +35,7 @@ build do
             "--prefix=#{install_dir}/embedded",
            ].join(" "), :env => env
 
-  command "make -j #{max_build_jobs}", :env => env
+  command "make -j #{workers}", :env => env
   command "make install", :env => env
   command "rm #{install_dir}/embedded/bin/noping"
 end
