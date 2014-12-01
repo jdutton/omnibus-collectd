@@ -15,25 +15,16 @@
 # limitations under the License.
 #
 
-name "libyajl"
-version "2.0.4"
+name "libtool"
+default_version "2.4.4"
 
-dependency "cmake"
+source :url => "http://ftpmirror.gnu.org/libtool/libtool-2.4.4.tar.gz",
+       :md5 => "353ed373fd3c6d7e47a1f4a8728d966b"
 
-source :url => "https://github.com/lloyd/yajl/archive/2.0.4.zip",
-       :md5 => "d04d02fd7e3c90250f62269e69161f84"
-
-relative_path "yajl-#{version}"
-
-configure_env = {
-  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -L/lib -L/usr/lib",
-  "CPPFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}",
-}
+relative_path "libtool-#{version}"
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
+  command "./configure --prefix=#{install_dir}/embedded"
   command "make"
   command "make install"
 end

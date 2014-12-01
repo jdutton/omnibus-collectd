@@ -15,20 +15,23 @@
 # limitations under the License.
 #
 
-name "collectd"
+name "chtcollectd"
 maintainer "jeff.r.dutton@gmail.com"
 homepage "https://github.com/jdutton/omnibus-collectd"
 
-replaces        "collectd"
-install_path    "/opt/collectd"
-build_version   "5.4.0"  # Make sure this matches the config/software/collectd.rb
+replace        "chtcollectd"
+install_dir     "/opt/chtcollectd"
+build_version   "5.4.0"
 build_iteration 1
 
 # creates required build directories
 dependency "preparation"
 
 # collectd dependencies/components
-dependency "collectd"
+dependency "chtcollectd"
+
+# version manifest file
+dependency "version-manifest"
 
 exclude "\.git*"
 exclude "bundler\/git"

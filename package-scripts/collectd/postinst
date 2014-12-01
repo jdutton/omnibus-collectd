@@ -11,7 +11,10 @@ function error_exit
   echo "${PROGNAME}: ${1:-"Unknown Error"}" 1>&2
   exit 1
 }
-chown -R root:root /opt/collectd
-echo "Thank you for installing collectd!"
+chown -R root:root /opt/chtcollectd
+mkdir /etc/chtcollectd
+mkdir /var/lib/chtcollectd
+
+echo "Thank you for installing chtcollectd!"
 
 exit 0
