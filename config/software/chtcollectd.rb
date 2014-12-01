@@ -15,25 +15,15 @@
 # limitations under the License.
 #
 
-name "collectd"
-version "5.4.0"
+name "chtcollectd"
+default_version "5.4.0"
 
-dependency "cmake"
-dependency "libyajl"
-dependency "protobuf-c"
-dependency "credis"
-dependency "libgcrypt"  # Used by ???
-dependency "libpcap"
 
-# Curl JSON and XML plugins
-dependency "curl"
-dependency "openssl"
-dependency "libxml2"
+# libcollectdclient.so depends on libgcrypt
+dependency "libgcrypt"
+dependency "libgpg-error"
+dependency "libtool"
 
-# AMQP plugin
-dependency "rabbitmq-c"
-dependency "percona-dev"
-dependency "liboping"
 
 source :url => "http://collectd.org/files/collectd-#{version}.tar.gz",
        :md5 => "d4176b3066f3b85d85343d3648ea43f6"
@@ -50,15 +40,19 @@ configure_env = {
 }
 
 plugin_opts = [
-  "--enable-curl",
-  "--enable-curl_json",
-  "--enable-curl_xml",
-  "--enable-ping --with-liboping=#{install_dir}/embedded",
-  "--enable-write_riemann",
-  "--enable-write_http",
-  "--enable-write_graphite",
-  "--enable-write_redis",
-  "--without-perl-bindings"
+  "--enable-df",
+  "--enable-aggregation", 
+  "--enable-memory", 
+  "--enable-cpu", 
+  "--enable-csv",
+  "--enable-disk",
+  "--enable-load",
+  "--enable-match_regex",
+  "--enable-swap",
+  "--enable-vmem",
+  "--enable-virt",
+  "--enable-users",
+  "--enable-all-plugins=no"
 ]
 
 build do
@@ -80,6 +74,6 @@ build do
   # the cmake binaries are effing huge.
   # at this point collectd is built and we don't need them anymore
   %w{ccmake cmake cpack ctest}.each do |bigbin|
-    command "rm #{install_dir}/embedded/bin/#{bigbin}"
+    command "rm -f #{install_dir}/embedded/bin/#{bigbin}"
   end
 end

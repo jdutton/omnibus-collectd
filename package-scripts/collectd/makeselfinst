@@ -5,8 +5,8 @@
 
 PROGNAME=`basename $0`
 INSTALLER_DIR=`dirname $0`
-DEST_DIR=/opt/collectd
-CONFIG_DIR=/etc/collectd
+DEST_DIR=/opt/chtcollectd
+CONFIG_DIR=/etc/chtcollectd
 USAGE="usage: $0"
 
 error_exit()

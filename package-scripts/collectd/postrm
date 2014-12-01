@@ -4,6 +4,6 @@
 # after package is uninstalled.
 #
 
-echo "collectd has been uninstalled!"
+echo "chtcollectd has been uninstalled!"
 
 exit 0
